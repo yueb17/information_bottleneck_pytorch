@@ -7,6 +7,7 @@ import tqdm
 from torch import nn
 
 import scipy.io as sio
+from pdb import set_trace as st
 
 def load_tishby_toy_dataset(filename, assign_random_labels=False, seed=42):
     np.random.seed(seed)

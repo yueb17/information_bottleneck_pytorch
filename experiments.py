@@ -12,8 +12,18 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 # %matplotlib inline
 from pdb import set_trace as st 
+from option import args
+from utils import *
 
-model = pytorch_network.MLPWithInfo(output_activation=None)
+print(args)
+
+model = pytorch_network.MLPWithInfo( 
+	input_dim=args.ipt_dim,
+	layers_dim=strlist_to_list(args.layers_dim, int),
+	activation=act_dict(args.hidden_act),
+	output_activation=act_dict(args.opt_act), 
+	last_activation=act_dict(args.last_act)
+	)
 
 print(model)
 
@@ -23,16 +33,15 @@ X, y = pytorch_network.load_tishby_toy_dataset('./data/g1.mat')
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, train_size=0.9)
 
 
-epochs = 1000
 train_res = pytorch_network.train_network(model, X_train, y_train.astype(np.int),
-                                          X_test, y_test.astype(np.int), batch_size=12, epochs=epochs)
+                                          X_test, y_test.astype(np.int), batch_size=args.batch_size, epochs=args.epoch)
 
 ws = model.representations_per_epochs
 order = train_res[2]
 
 ws = get_aligned_representations(ws, order)
 
-assert len(model.representations_per_epochs) == epochs
+assert len(model.representations_per_epochs) == args.epoch
 assert len(model.representations_per_epochs[0]) == len(model.info_layers_numbers)
 
 for i in range(len(model.representations_per_epochs[0])):
@@ -43,11 +52,11 @@ plt.plot(np.arange(len(train_res[0])), train_res[0])
 plt.plot(np.arange(len(train_res[1])), train_res[1])
 
 num_of_bins = 40
-every_n = 10
+every_n = args.plot_interval
 IXT_array, ITY_array = get_information(ws, X_train, np.concatenate([y_train, 1 - y_train], axis=1), 
                                        num_of_bins, every_n=every_n, return_matrices=True)
 
 import importlib
 import plot_information
 importlib.reload(plot_information)
-plot_information.plot_information_plane(IXT_array, ITY_array, num_epochs=epochs, every_n=every_n)
+plot_information.plot_information_plane(IXT_array, ITY_array, num_epochs=args.epoch, every_n=every_n, args=args)

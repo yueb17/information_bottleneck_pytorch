@@ -13,7 +13,9 @@ import matplotlib.pyplot as plt
 # %matplotlib inline
 from pdb import set_trace as st 
 from option import args
+from option import *
 from utils import *
+from smilelogging import Logger
 
 print(args)
 
@@ -48,10 +50,14 @@ for i in range(len(model.representations_per_epochs[0])):
     assert(model.representations_per_epochs[0][i].shape[0] == X_train.shape[0])
 
 plt.plot(np.arange(len(train_res[0])), train_res[0])
+IP_path = gen_img_path + '/IP.jpg'
+    plt.savefig(IP_path)
 
 plt.plot(np.arange(len(train_res[1])), train_res[1])
-
-num_of_bins = 40
+IP_path = gen_img_path + '/IP.jpg'
+    plt.savefig(IP_path)
+    
+num_of_bins = args.bin_num
 every_n = args.plot_interval
 IXT_array, ITY_array = get_information(ws, X_train, np.concatenate([y_train, 1 - y_train], axis=1), 
                                        num_of_bins, every_n=every_n, return_matrices=True)

@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from utils import *
 from pdb import set_trace as st
 import os
+from smilelogging import Logger
+from option import *
 
 matplotlib.rcParams.update({'font.size': 18})
 
@@ -33,9 +35,7 @@ def plot_information_plane(IXT_array, ITY_array, num_epochs, every_n, args):
     cbar.ax.text(0.5, -0.01, 0, transform=cbar.ax.transAxes, va='top', ha='center')
     cbar.ax.text(0.5, 1.0, str(num_epochs), transform=cbar.ax.transAxes, va='bottom', ha='center')
     
-    fig_path = './figs/' + args.layers_dim + '_' + args.hidden_act + '_' + args.opt_act + '_' + args.last_act + '/'
-    if not os.path.exists(fig_path):
-        os.makedirs(fig_path)
+    IP_path = gen_img_path + '/IP.jpg'
+    plt.savefig(IP_path)
 
-    plt.savefig(fig_path+'IP.jpg')
     plt.show()

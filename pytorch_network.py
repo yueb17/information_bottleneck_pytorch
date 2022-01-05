@@ -54,7 +54,7 @@ class BatchGenerator():
 
 class MLPWithInfo(nn.Module):
     def __init__(self, input_dim=12, layers_dim=[10, 7, 5, 4, 3, 1], 
-                 activation=nn.Tanh, output_activation=nn.Sigmoid, last_activation=nn.Sigmoid):
+                 activation=nn.ReLU, output_activation=nn.Sigmoid, last_activation=nn.Sigmoid):
         super().__init__()
         self.representations_per_epochs = []
         self.info_layers_numbers = []

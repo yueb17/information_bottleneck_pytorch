@@ -29,4 +29,5 @@ def plot_information_plane(IXT_array, ITY_array, num_epochs, every_n):
     cbar.set_label('Num epochs')
     cbar.ax.text(0.5, -0.01, 0, transform=cbar.ax.transAxes, va='top', ha='center')
     cbar.ax.text(0.5, 1.0, str(num_epochs), transform=cbar.ax.transAxes, va='bottom', ha='center')
+    plt.savefig('./figs/relu_softmax.jpg')
     plt.show()

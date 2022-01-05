@@ -7,19 +7,19 @@ from joblib import Parallel, delayed
 
 import warnings
 import numpy as np
-import numba
+# import numba
 
 
 NUM_CORES = cpu_count()
 warnings.filterwarnings("ignore")
 
 
-@numba.jit
+# @numba.jit
 def entropy(probs):
     return -np.sum(probs * np.ma.log2(probs))
 
 
-@numba.jit
+# @numba.jit
 def joint_entropy(unique_inverse_x, unique_inverse_y, bins_x, bins_y):
 
     joint_distribution = np.zeros((bins_x, bins_y))
@@ -29,7 +29,7 @@ def joint_entropy(unique_inverse_x, unique_inverse_y, bins_x, bins_y):
     return entropy(joint_distribution)
 
 
-@numba.jit
+# @numba.jit
 def layer_information(layer_output, bins, py, px, unique_inverse_x, unique_inverse_y):
     ws_epoch_layer_bins = bins[np.digitize(layer_output, bins) - 1]
     ws_epoch_layer_bins = ws_epoch_layer_bins.reshape(len(layer_output), -1)
@@ -57,7 +57,7 @@ def layer_information(layer_output, bins, py, px, unique_inverse_x, unique_inver
     }
 
 
-@numba.jit
+# @numba.jit
 def calc_information_for_epoch(epoch_number, ws_epoch, bins, unique_inverse_x,
                                unique_inverse_y, pxs, pys):
     """Calculate the information for all the layers for specific epoch"""
@@ -79,7 +79,7 @@ def calc_information_for_epoch(epoch_number, ws_epoch, bins, unique_inverse_x,
     return information_epoch
 
 
-@numba.jit
+# @numba.jit
 def extract_probs(label, x):
     """calculate the probabilities of the given data and labels p(x), p(y) and (y|x)"""
     pys = np.sum(label, axis=0) / float(label.shape[0])

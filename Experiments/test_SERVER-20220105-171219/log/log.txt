@@ -1,43 +1,0 @@
-cd /mnt/08a479d1-f99d-4cb0-808b-a0b17e79ff5f/yue/information_bottleneck_pytorch
-python experiments.py --epoch 100 --plot_interval 1 --marksize 5 --project_name test --screen_print
-
-[171219 12003 2022/01/05-17:12:19] Warning! Your code is not committed. Cannot be too careful.
-[171219 12003 2022/01/05-17:12:21] Warning! Git not found under this project. Highly recommended to use Git to manage code.
-('batch_size': 12) ('bin_num': 40) ('cache_ignore': ) ('CodeID': GitNotFound) ('debug': False) ('epoch': 100) ('experiments_dir': None) ('hidden_act': tanh) ('ipt_dim': 12) ('last_act': sigmoid) ('layers_dim': [10, 7, 5, 4, 3, 1]) ('marksize': 5) ('note': ) ('opt_act': iden) ('plot_interval': 1) ('project_name': test) ('screen_print': True) 
-
-[171219 12003 2022/01/05-17:12:21] ==> Caching various config files to 'Experiments/test_SERVER-20220105-171219/.caches'
-[171219 12003 2022/01/05-17:12:21] ==> Caching done (time: 0.00s)
-[171219 12003 2022/01/05-17:12:21] [171219 12003 2022/01/05-17:12:21] Namespace(CodeID='GitNotFound', batch_size=12, bin_num=40, cache_ignore='', debug=False, epoch=100, experiments_dir=None, hidden_act='tanh', ipt_dim=12, last_act='sigmoid', layers_dim='[10, 7, 5, 4, 3, 1]', marksize=5, note='', opt_act='iden', plot_interval=1, project_name='test', screen_print=True)
-[171219 12003 2022/01/05-17:12:21] [171219 12003 2022/01/05-17:12:21] MLPWithInfo(
-  (model): ModuleList(
-    (0): Linear(in_features=12, out_features=10, bias=True)
-    (1): Tanh()
-    (2): Linear(in_features=10, out_features=7, bias=True)
-    (3): Tanh()
-    (4): Linear(in_features=7, out_features=5, bias=True)
-    (5): Tanh()
-    (6): Linear(in_features=5, out_features=4, bias=True)
-    (7): Tanh()
-    (8): Linear(in_features=4, out_features=3, bias=True)
-    (9): Tanh()
-    (10): Linear(in_features=3, out_features=1, bias=True)
-  )
-)
-[171219 12003 2022/01/05-17:12:21] [171219 12003 2022/01/05-17:12:21] [1, 3, 5, 7, 9, 11]
-  0%|          | 0/100 [00:00<?, ?it/s]  1%|1         | 1/100 [00:00<01:09,  1.43it/s]  2%|2         | 2/100 [00:01<00:59,  1.66it/s]  2%|2         | 2/100 [00:01<01:10,  1.40it/s]
-Traceback (most recent call last):
-  File "experiments.py", line 39, in <module>
-    X_test, y_test.astype(np.int), batch_size=args.batch_size, epochs=args.epoch)
-  File "/mnt/08a479d1-f99d-4cb0-808b-a0b17e79ff5f/yue/information_bottleneck_pytorch/pytorch_network.py", line 158, in train_network
-    predictions = model(X_batch)
-  File "/home/lichen/anaconda3/envs/py369/lib/python3.6/site-packages/torch/nn/modules/module.py", line 541, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/mnt/08a479d1-f99d-4cb0-808b-a0b17e79ff5f/yue/information_bottleneck_pytorch/pytorch_network.py", line 100, in forward
-    current_representation = layer(current_representation)
-  File "/home/lichen/anaconda3/envs/py369/lib/python3.6/site-packages/torch/nn/modules/module.py", line 541, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/home/lichen/anaconda3/envs/py369/lib/python3.6/site-packages/torch/nn/modules/linear.py", line 87, in forward
-    return F.linear(input, self.weight, self.bias)
-  File "/home/lichen/anaconda3/envs/py369/lib/python3.6/site-packages/torch/nn/functional.py", line 1370, in linear
-    ret = torch.addmm(bias, input, weight.t())
-KeyboardInterrupt

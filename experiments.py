@@ -6,7 +6,7 @@ import tqdm
 
 from utils import get_aligned_representations
 from information_process import get_information
-from plot_information import plot_information_plane
+from plot_information import plot_information_plane, plot_information_plane2
 from sklearn.model_selection import train_test_split
 
 import matplotlib.pyplot as plt
@@ -36,7 +36,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, train_s
 
 
 train_res = pytorch_network.train_network(model, X_train, y_train.astype(np.int),
-                                          X_test, y_test.astype(np.int), batch_size=args.batch_size, epochs=args.epoch)
+                                          X_test, y_test.astype(np.int), args=args, batch_size=args.batch_size, epochs=args.epoch)
 
 ws = model.representations_per_epochs
 order = train_res[3]
@@ -52,7 +52,7 @@ for i in range(len(model.representations_per_epochs[0])):
 fig, axs = plt.subplots(2, 2)
 axs[0,0].plot(np.arange(len(train_res[0])), train_res[0]), axs[0,0].set_title('train_loss')
 axs[0,1].plot(np.arange(len(train_res[1])), train_res[1]), axs[0,1].set_title('test_acc')
-axs[1,0].plot(np.range(len(train_res[2])), train_res[2]), axs[1,0].set_title('train_acc')
+axs[1,0].plot(np.arange(len(train_res[2])), train_res[2]), axs[1,0].set_title('train_acc')
 
 acc_path = gen_img_path + '/acc.jpg'
 plt.savefig(acc_path)
@@ -67,3 +67,5 @@ import importlib
 import plot_information
 importlib.reload(plot_information)
 plot_information.plot_information_plane(IXT_array, ITY_array, num_epochs=args.epoch, every_n=every_n, args=args)
+plot_information.plot_information_plane2(IXT_array, ITY_array, num_epochs=args.epoch, every_n=every_n, args=args)
+

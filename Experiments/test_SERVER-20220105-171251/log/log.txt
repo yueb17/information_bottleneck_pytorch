@@ -1,26 +1,0 @@
-cd /mnt/08a479d1-f99d-4cb0-808b-a0b17e79ff5f/yue/information_bottleneck_pytorch
-python experiments.py --epoch 10 --plot_interval 1 --marksize 5 --project_name test --screen_print
-
-[171251 12054 2022/01/05-17:12:51] Warning! Your code is not committed. Cannot be too careful.
-('batch_size': 12) ('bin_num': 40) ('cache_ignore': ) ('CodeID': 10e05a6) ('debug': False) ('epoch': 10) ('experiments_dir': None) ('hidden_act': tanh) ('ipt_dim': 12) ('last_act': sigmoid) ('layers_dim': [10, 7, 5, 4, 3, 1]) ('marksize': 5) ('note': ) ('opt_act': iden) ('plot_interval': 1) ('project_name': test) ('screen_print': True) 
-
-[171251 12054 2022/01/05-17:12:54] ==> Caching various config files to 'Experiments/test_SERVER-20220105-171251/.caches'
-[171251 12054 2022/01/05-17:12:54] ==> Caching done (time: 0.00s)
-[171251 12054 2022/01/05-17:12:54] [171251 12054 2022/01/05-17:12:54] Namespace(CodeID='10e05a6', batch_size=12, bin_num=40, cache_ignore='', debug=False, epoch=10, experiments_dir=None, hidden_act='tanh', ipt_dim=12, last_act='sigmoid', layers_dim='[10, 7, 5, 4, 3, 1]', marksize=5, note='', opt_act='iden', plot_interval=1, project_name='test', screen_print=True)
-[171251 12054 2022/01/05-17:12:54] [171251 12054 2022/01/05-17:12:54] MLPWithInfo(
-  (model): ModuleList(
-    (0): Linear(in_features=12, out_features=10, bias=True)
-    (1): Tanh()
-    (2): Linear(in_features=10, out_features=7, bias=True)
-    (3): Tanh()
-    (4): Linear(in_features=7, out_features=5, bias=True)
-    (5): Tanh()
-    (6): Linear(in_features=5, out_features=4, bias=True)
-    (7): Tanh()
-    (8): Linear(in_features=4, out_features=3, bias=True)
-    (9): Tanh()
-    (10): Linear(in_features=3, out_features=1, bias=True)
-  )
-)
-[171251 12054 2022/01/05-17:12:54] [171251 12054 2022/01/05-17:12:54] [1, 3, 5, 7, 9, 11]
-  0%|          | 0/10 [00:00<?, ?it/s] 10%|#         | 1/10 [00:00<00:05,  1.65it/s] 20%|##        | 2/10 [00:01<00:04,  1.91it/s] 30%|###       | 3/10 [00:01<00:03,  2.01it/s] 40%|####      | 4/10 [00:02<00:02,  2.06it/s] 50%|#####     | 5/10 [00:02<00:02,  2.03it/s] 60%|######    | 6/10 [00:03<00:02,  1.98it/s] 70%|#######   | 7/10 [00:03<00:01,  1.96it/s] 80%|########  | 8/10 [00:04<00:01,  1.98it/s] 90%|######### | 9/10 [00:04<00:00,  2.01it/s]100%|##########| 10/10 [00:05<00:00,  2.01it/s]100%|##########| 10/10 [00:05<00:00,  1.99it/s]

@@ -127,16 +127,17 @@ class MLPWithInfo(nn.Module):
         # self.representations_epochs = []
 
 
-def train_network(model, X, y, X_val, y_val, batch_size=12, epochs=16):
+def train_network(model, X, y, X_val, y_val, args, batch_size=12, epochs=16):
     """
     The network is trained with full batch
     """
     loss_list = []
     epoch_mean_loss = []
     accuracy_mean_val = []
+    accuracy_mean_tra = []
     
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
-    scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.97)
+    optimizer = torch.optim.SGD(model.parameters(), args.lr=0.01)
+    scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, args.gamma=0.97)
     loss_fun = nn.BCEWithLogitsLoss()
     model.reset()
     train_shuffles = []
@@ -144,6 +145,7 @@ def train_network(model, X, y, X_val, y_val, batch_size=12, epochs=16):
     for epoch in tqdm.tqdm(range(epochs)):
         samples = 0
         cum_loss = 0
+        accuracy_tra = 0
 
         model.reset()
 

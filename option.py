@@ -14,7 +14,10 @@ parser.add_argument('--last_act', type=str, default='sigmoid')
 parser.add_argument('--plot_interval', type=int, default=10)
 parser.add_argument('--marksize', type=int, default=15)
 parser.add_argument('--bin_num', type=int, default=40)
+parser.add_argument('--lr', type=float, default=0.01)
+parser.add_argument('--gamma', type=float, default=0.97)
 
+parser.add_argument('--PI', type=str, default='dense', choices=['dense', 'random', 'magnitude'])
 # revise
 args = parser.parse_args()
 logger = Logger(args)

@@ -1,0 +1,17 @@
+CodeID: GitNotFound
+batch_size: 12
+bin_num: 40
+cache_ignore: ''
+debug: false
+epoch: 100
+experiments_dir: null
+hidden_act: tanh
+ipt_dim: 12
+last_act: sigmoid
+layers_dim: '[10, 7, 5, 4, 3, 1]'
+marksize: 5
+note: ''
+opt_act: iden
+plot_interval: 1
+project_name: test
+screen_print: true

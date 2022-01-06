@@ -168,12 +168,6 @@ def train_network(model, X, y, X_val, y_val, batch_size=12, epochs=16):
             samples += X_batch.shape[0]
             cum_loss += loss.item()
 
-            # train acc
-            model.eval()
-            accuracy_tra += (y_batch.int() == (torch.nn.functional.sigmoid(predictions) > 0.5).int()).sum().item()
-            
-        accuracy_mean_tra.append(float(accuracy_tra) / samples)
-
         scheduler.step()
         model.next_epoch()
 
@@ -196,4 +190,68 @@ def train_network(model, X, y, X_val, y_val, batch_size=12, epochs=16):
 
         accuracy_mean_val.append(float(accuracy_val) / samples_val)
 
-    return epoch_mean_loss, accuracy_mean_val, accuracy_mean_tra, train_shuffles
+    return epoch_mean_loss, accuracy_mean_val, train_shuffles
+
+
+# def train_network_non_robus(model, X, y, X_val, y_val, epochs=16):
+#     """
+#     The network is trained with full batch
+#     """
+
+#     batch_size = X.shape[0]
+#     loss_list = []
+#     epoch_mean_loss = []
+#     accuracy_mean_val = []
+#     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+#     loss_fun_nonrobust = torch.nn.BCELoss()
+#     model.reset()
+    
+#     for epoch in tqdm.tqdm(range(epochs)):
+#         samples = 0
+#         cum_loss = 0
+
+#         model.reset()
+
+#         for X_batch, y_batch in pytorch_network.batch_generator([X, y], batch_size):
+#             X_batch = torch.Tensor(X_batch)
+#             y_batch = torch.Tensor(y_batch)
+
+#             model.train()
+#             predictions = model(X_batch)
+
+#             loss = loss_fun_nonrobust(predictions.reshape(-1), y_batch.reshape(-1))
+#             loss.backward()
+
+#             loss_list.append(loss.item())
+
+#             optimizer.step()
+#             optimizer.zero_grad()
+
+#             samples += X_batch.shape[0]
+#             cum_loss += loss.item()
+
+#         model.next_epoch()
+
+#         epoch_mean_loss.append(cum_loss / samples)
+
+#         samples_val = 0
+#         accuracy_val = 0
+
+#         for X_batch, y_batch in pytorch_network.batch_generator([X_val, y_val], 1):
+#             X_batch = torch.Tensor(X_batch)
+#             y_batch = torch.Tensor(y_batch)
+
+#             model.eval()
+#             predictions_logits = model(X_batch)
+
+#             accuracy_val += (y_batch.int() == (predictions_logits > 0.5).int()).sum().item()
+#             samples_val += X_batch.shape[0]
+
+#         accuracy_mean_val.append(float(accuracy_val) / samples_val)
+
+#     return epoch_mean_loss, accuracy_mean_val
+
+# nonrobust_train = train_network_non_robus(non_robust_model, X_train, y_train.astype(np.int),
+#                                           X_test, y_test.astype(np.int), epochs)
+
+# ws_nonron = non_robust_model.representations_epochs

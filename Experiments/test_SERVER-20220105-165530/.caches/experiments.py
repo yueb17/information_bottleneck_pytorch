@@ -39,7 +39,7 @@ train_res = pytorch_network.train_network(model, X_train, y_train.astype(np.int)
                                           X_test, y_test.astype(np.int), batch_size=args.batch_size, epochs=args.epoch)
 
 ws = model.representations_per_epochs
-order = train_res[3]
+order = train_res[2]
 
 ws = get_aligned_representations(ws, order)
 
@@ -51,12 +51,18 @@ for i in range(len(model.representations_per_epochs[0])):
 
 fig, axs = plt.subplots(2, 2)
 axs[0,0].plot(np.arange(len(train_res[0])), train_res[0]), axs[0,0].set_title('train_loss')
-axs[0,1].plot(np.arange(len(train_res[1])), train_res[1]), axs[0,1].set_title('test_acc')
-axs[1,0].plot(np.range(len(train_res[2])), train_res[2]), axs[1,0].set_title('train_acc')
+axs[0,1].plot(np.arange(len(train_res[1])), train_res[1]), axs[0,1].set_title('train_acc')
+# axs[1,0].plot(np.range(len(train_res[2])), train_res[2]), axs[1,0].set_title('test_loss')
+# axs[1,1].plot(np.range(len(train_res[3])), train_res[3]), axs[1,1].set_title('test_acc')
+path_ = gen_img_path + '/acc.jpg'
+plt.savefig(path_)
+# plt.plot(np.arange(len(train_res[0])), train_res[0])
+# loss_path = gen_img_path + '/loss.jpg'
+# plt.savefig(loss_path)
 
-acc_path = gen_img_path + '/acc.jpg'
-plt.savefig(acc_path)
-
+# plt.plot(np.arange(len(train_res[1])), train_res[1])
+# acc_path = gen_img_path + '/acc.jpg'
+# plt.savefig(acc_path)
 
 num_of_bins = args.bin_num
 every_n = args.plot_interval

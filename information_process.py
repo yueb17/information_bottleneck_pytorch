@@ -7,6 +7,7 @@ from joblib import Parallel, delayed
 
 import warnings
 import numpy as np
+from pdb import set_trace as st
 # import numba
 
 
@@ -98,8 +99,9 @@ def extract_probs(label, x):
     return pys, None, unique_x, unique_inverse_x, unique_inverse_y, pxs
 
 
-def get_information(ws, x, label, num_of_bins, every_n=1,
+def get_information(ws, x, label, num_of_bins, args, every_n=1,
                     return_matrices=False):
+    
     """
     Calculate the information for the network for all the epochs and all the layers
 
@@ -109,7 +111,7 @@ def get_information(ws, x, label, num_of_bins, every_n=1,
 
     # print('Start calculating the information...')
 
-    bins = np.linspace(-1, 1, num_of_bins)
+    bins = np.linspace(args.bin_min, args.bin_max, num_of_bins)
     label = np.array(label).astype(np.float)
     pys, _, unique_x, unique_inverse_x, unique_inverse_y, pxs = extract_probs(label, x)
 

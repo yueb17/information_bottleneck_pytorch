@@ -40,7 +40,7 @@ train_res = pytorch_network.train_network(model, X_train, y_train.astype(np.int)
 
 ws = model.representations_per_epochs
 order = train_res[3]
-
+# st()
 ws = get_aligned_representations(ws, order)
 
 assert len(model.representations_per_epochs) == args.epoch
@@ -60,8 +60,9 @@ plt.savefig(acc_path)
 
 num_of_bins = args.bin_num
 every_n = args.plot_interval
+# st()
 IXT_array, ITY_array = get_information(ws, X_train, np.concatenate([y_train, 1 - y_train], axis=1), 
-                                       num_of_bins, every_n=every_n, return_matrices=True)
+                                       num_of_bins, args, every_n=every_n, return_matrices=True)
 
 import importlib
 import plot_information

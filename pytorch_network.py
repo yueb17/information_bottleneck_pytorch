@@ -136,9 +136,14 @@ def train_network(model, X, y, X_val, y_val, args, batch_size=12, epochs=16):
     accuracy_mean_val = []
     accuracy_mean_tra = []
     
-    optimizer = torch.optim.SGD(model.parameters(), args.lr=0.01)
-    scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, args.gamma=0.97)
-    loss_fun = nn.BCEWithLogitsLoss()
+    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
+    scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=args.gamma)
+    if args.loss == 'bce':
+        loss_fun = nn.BCEWithLogitsLoss()
+    elif args.loss == 'ce':
+        loss_fun = nn.CrossEntropyLoss()
+    else:
+        raise NotImplementedError
     model.reset()
     train_shuffles = []
 
@@ -151,15 +156,21 @@ def train_network(model, X, y, X_val, y_val, args, batch_size=12, epochs=16):
 
         train_batcher = BatchGenerator([X, y], batch_size)
         train_shuffles.append(train_batcher.how_it_shuffled()[1])
+        # st()
 
         for X_batch, y_batch in train_batcher.batch_generator():
             X_batch = torch.Tensor(X_batch)
             y_batch = torch.Tensor(y_batch)
+            # st()
 
             model.train()
             predictions = model(X_batch)
 
-            loss = loss_fun(predictions.reshape(-1), y_batch.reshape(-1))
+            # st()
+            if args.loss == 'ce':
+                loss = loss_fun(predictions, y_batch.reshape(-1).long())
+            else:
+                loss = loss_fun(predictions.reshape(-1), y_batch.reshape(-1))
             loss.backward()
 
             loss_list.append(loss.item())
